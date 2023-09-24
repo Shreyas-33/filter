@@ -6,7 +6,6 @@ import numpy as np
 file = st.file_uploader("Upload file", type=["seed", "mseed"])
 
 if file is not None:
-    # stream = read("./S0001_centaur-3_9387_20230914_120000.seed")
     stream = read(file)
     component = st.selectbox("Component", ["Z", "X", "Y"])
     stream = stream.select(component=component)
