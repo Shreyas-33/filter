@@ -1,0 +1,4 @@
+obspy
+streamlit
+allantools
+numpy
