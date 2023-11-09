@@ -8,8 +8,15 @@ file = st.file_uploader("Upload file", type=["seed", "mseed"])
 if file is not None:
     stream = read(file)
     component = st.selectbox("Component", ["Z", "X", "Y"])
+    
     stream = stream.select(component=component)
     stream
+    convert = st.checkbox("Convert to Acceleration")
+    if convert:
+        titan_gain = st.number_input("Titan Gain", value=8.16, step=0.01)
+    if convert:
+        # g = seed_data * (1e-6)/(1.6*9.80665*4.08)
+        stream[0].data = stream[0].data * (1e-6)/(1.6*9.80665*titan_gain)
     # choose the first trace
     # tr = st[0]
     st.title("Filtering")
