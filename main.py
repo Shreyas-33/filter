@@ -25,6 +25,7 @@ if file is not None:
     filter_name = st.selectbox("Filter Type", ["None", "lowpass", "highpass", "lowpass_cheby_2"])
 
     filter_freq = st.number_input("Filter Frequency", value=1.0, step=0.1)
+    plot_start = st.slider("Plot Start", min_value=0, max_value=len(stream[0].data), value=0)
 
     # filter the trace using lowwpass filter cheby 2
     # tr_filt = tr.copy()
@@ -32,6 +33,8 @@ if file is not None:
     if filter_name != "None":
         stream.filter(filter_name, freq=filter_freq)
 
+    stream[0].data = stream[0].data[plot_start:]
+    stream[0].times = stream[0].times()[plot_start:]
     # plot the raw and filtered data
     # tr.plot()
     # tr_filt.plot()
